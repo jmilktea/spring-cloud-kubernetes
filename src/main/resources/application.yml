@@ -1,0 +1,47 @@
+server:
+  port: 8020
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
+
+spring:
+  application:
+    name: myapp
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  main:
+    allow-circular-references: true
+  cloud:
+#    bootstrap:
+#      enabled: true
+    kubernetes:
+      reload:
+        enabled: true
+        strategy: refresh
+        mode: event
+#        period: 3000ms
+      config:
+        enabled: true
+        namespace: test01
+        include-not-ready-addresses: true
+        include-profile-specific-sources: false
+        name: myapp
+        sources:
+          - name: myapp
+
+debug: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
